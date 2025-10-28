@@ -66,10 +66,10 @@
 
         Mac-Mouse_Layer {
             bindings = <
-&kp LG(A)  &kp LG(X)     &kp LG(C)    &kp LG(V)  &kp LG(F)          &kp LESS_THAN         &kp GREATER_THAN  &kp CARET        &kp PERCENT    &kp DOLLAR
-&kp TAB    &kp LEFT_GUI  &kp LS(TAB)  &mkp MB1   &mkp MB2           &kp LEFT_PARENTHESIS  &mkp MB1          &kp LG(SPACE)    &mkp MB2       &kp DOUBLE_QUOTES
-&trans     &trans        &trans       &trans     &mkp MB3   &trans  &kp LEFT_BRACKET      &mkp MB4          &kp EXCLAMATION  &mkp MB5       &kp SQT
-&trans     &trans        &trans       &trans     &trans     &trans  &kp ENTER             &kp COLON         &kp BACKSPACE    &kp BACKSLASH  &kp HASH
+&kp LG(A)  &kp LG(X)     &kp LG(C)    &kp LG(V)  &kp LG(F)          &kp LG(SPACE)  &kp LC(LEFT)  &kp LC(RIGHT)     &trans    &trans
+&kp TAB    &kp LEFT_GUI  &kp LS(TAB)  &mkp MB1   &mkp MB2           &kp LG(C)      &mkp MB1      &kp LG(SPACE)     &mkp MB2  &trans
+&trans     &trans        &trans       &trans     &mkp MB3   &trans  &kp LG(V)      &mkp MB4      &kp LC(UP_ARROW)  &mkp MB5  &trans
+&trans     &trans        &trans       &trans     &trans     &trans  &trans         &kp COLON     &trans            &trans    &trans
             >;
 
             sensor-bindings = <&scroll_up_down>;
