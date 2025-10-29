@@ -129,8 +129,8 @@
         scroll_down_up: behavior_sensor_rotate_mouse_wheel_down_up {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            /* 上下の順序を逆にして反転 */
-            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+            /* ★逆に感じるとのことなので UP, DOWN の順に変更（前回から入れ替え） */
+            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
             tap-ms = <20>;
         };
     };
@@ -229,7 +229,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans
             >;
-            /* ナチュラルスクロールを適用 */
+            /* ナチュラルスクロールを適用（今回 UP,DOWN に入れ替え済み） */
             sensor-bindings = <&scroll_down_up>;
         };
 
