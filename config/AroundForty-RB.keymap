@@ -113,7 +113,7 @@
             tapping-term-ms = <200>;
         };
 
-        /* スクロール：上→下（通常方向） */
+        /* 通常方向（基準） */
         scroll_up_down: behavior_sensor_rotate_mouse_wheel_up_down {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
@@ -121,12 +121,12 @@
             tap-ms = <20>;
         };
 
-        /* スクロール：下→上（反転方向） ← 今回追加するノード */
+        /* ナチュラルスクロール（Mac想定）
         scroll_down_up: behavior_sensor_rotate_mouse_wheel_down_up {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            /* 上下の順序を逆にして反転させるのがポイント */
-            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+            /* 上下の順序を UP, DOWN に変更（前回提案の逆） */
+            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
             tap-ms = <20>;
         };
     };
