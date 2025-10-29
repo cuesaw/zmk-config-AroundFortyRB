@@ -1,18 +1,20 @@
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 #define MOUSE 6
 
-#include <behaviors/rgbled_widget.dtsi>  // needed to use the behaviors
+#include <behaviors/rgbled_widget.dtsi>  // RGBLEDウィジェットのビヘイビアを使うため
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 
+/* タップホールドの味付け */
 &mt {
     flavor = "balanced";
     quick-tap-ms = <0>;
 };
 
 / {
+    /* ==== コンボ定義 ==== */
     combos {
         compatible = "zmk,combos";
 
@@ -52,6 +54,7 @@
         };
     };
 
+    /* ==== マクロ定義 ==== */
     macros {
         to_layer_0: to_layer_0 {
             compatible = "zmk,behavior-macro-one-param";
@@ -103,12 +106,13 @@
         };
     };
 
+    /* ==== カスタム・ビヘイビア定義 ==== */
     behaviors {
+        /* レイヤータップ（短押しTO 0） */
         lt_to_layer_0: lt_to_layer_0 {
             compatible = "zmk,behavior-hold-tap";
             label = "LAYER_TAP_TO_0";
             bindings = <&mo>, <&to_layer_0>;
-
             #binding-cells = <2>;
             tapping-term-ms = <200>;
         };
@@ -121,16 +125,17 @@
             tap-ms = <20>;
         };
 
-        /* ナチュラルスクロール（Mac想定）
+        /* ナチュラルスクロール（Mac想定：通常のエンコーダーとは逆方向） */
         scroll_down_up: behavior_sensor_rotate_mouse_wheel_down_up {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            /* 上下の順序を UP, DOWN に変更（前回提案の逆） */
-            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+            /* 上下の順序を逆にして反転 */
+            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
             tap-ms = <20>;
         };
     };
 
+    /* ==== キーマップ ==== */
     keymap {
         compatible = "zmk,keymap";
 
@@ -216,6 +221,7 @@
             sensor-bindings = <&scroll_up_down>;
         };
 
+        /* スクロール専用レイヤ（overlay 側で scroll-layers に指定して有効化） */
         Scloll_Layer {
             bindings = <
 &trans  &trans  &trans  &trans  &trans          &trans  &trans    &trans  &trans  &trans
@@ -223,6 +229,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans
             >;
+            /* ナチュラルスクロールを適用 */
             sensor-bindings = <&scroll_down_up>;
         };
 
