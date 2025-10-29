@@ -8,6 +8,7 @@
 #include <dt-bindings/zmk/pointing.h>
 
 /* タップホールドの味付け */
+
 &mt {
     flavor = "balanced";
     quick-tap-ms = <0>;
@@ -15,6 +16,7 @@
 
 / {
     /* ==== コンボ定義 ==== */
+
     combos {
         compatible = "zmk,combos";
 
@@ -52,9 +54,15 @@
             bindings = <&macOS_Lock>;
             key-positions = <25 38>;
         };
+
+        mousekeys {
+            bindings = <&none>;
+            key-positions = <5 6 7 18 17 16 15 26 27 28 29>;
+        };
     };
 
     /* ==== マクロ定義 ==== */
+
     macros {
         to_layer_0: to_layer_0 {
             compatible = "zmk,behavior-macro-one-param";
@@ -107,35 +115,45 @@
     };
 
     /* ==== カスタム・ビヘイビア定義 ==== */
+
     behaviors {
         /* レイヤータップ（短押しTO 0） */
+
         lt_to_layer_0: lt_to_layer_0 {
             compatible = "zmk,behavior-hold-tap";
             label = "LAYER_TAP_TO_0";
             bindings = <&mo>, <&to_layer_0>;
+
             #binding-cells = <2>;
             tapping-term-ms = <200>;
         };
 
         /* 通常方向（基準） */
+
         scroll_up_down: behavior_sensor_rotate_mouse_wheel_up_down {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+
             tap-ms = <20>;
         };
 
         /* ナチュラルスクロール（Mac想定：通常のエンコーダーとは逆方向） */
+
         scroll_down_up: behavior_sensor_rotate_mouse_wheel_down_up {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
+
             /* ★逆に感じるとのことなので UP, DOWN の順に変更（前回から入れ替え） */
+
             bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+
             tap-ms = <20>;
         };
     };
 
     /* ==== キーマップ ==== */
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -222,6 +240,7 @@
         };
 
         /* スクロール専用レイヤ（overlay 側で scroll-layers に指定して有効化） */
+
         Scloll_Layer {
             bindings = <
 &trans  &trans  &trans  &trans  &trans          &trans  &trans    &trans  &trans  &trans
@@ -229,7 +248,9 @@
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans
             >;
+
             /* ナチュラルスクロールを適用（今回 UP,DOWN に入れ替え済み） */
+
             sensor-bindings = <&scroll_down_up>;
         };
 
