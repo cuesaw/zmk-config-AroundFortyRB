@@ -1,8 +1,8 @@
-/* AroundForty-RB_R.overlay（input processors でスクロールY反転を適用した版） */
+/* AroundForty-RB_R.overlay（Input Processor: AML + スクロールY反転 + excluded-positions + 2秒タイムアウト） */
 
 #include "AroundForty-RB.dtsi"
 
-/* ▼ 入力プロセッサ使用に必要なインクルードを追加 */
+/* Input Processor 利用 */
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
@@ -13,29 +13,48 @@
 &kscan0 {
         col-gpios
             = <&xiao_d 10 GPIO_ACTIVE_HIGH>
-            , <&xiao_d 9 GPIO_ACTIVE_HIGH> 
-            , <&xiao_d 8 GPIO_ACTIVE_HIGH> 
-            , <&xiao_d 7 GPIO_ACTIVE_HIGH> 
+            , <&xiao_d 9 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 8 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 7 GPIO_ACTIVE_HIGH>
             , <&gpio0 10 GPIO_ACTIVE_HIGH>
             ;
 };
 
-/ {
-    /* 既存のトラックボール用リスナー。ここへ “スクロールY反転” を追加する */
+/* ▼ AML の“解除ルール”と“誤爆防止” */
+&zip_temp_layer {
+    /* 直前200ms以内にキー入力があれば AML を起動しない（誤爆防止） */
+    require-prior-idle-ms = <200>;
+
+    /* ここに“マウスキーの position”を列挙
+       → これらは押しても AML を解除しない
+       → それ“以外”を押したら即 AML 解除
+    */
+    excluded-positions = <
+        5 6 7
+        18 17 16 15
+        26 27 28 29
+    >;
+};
+
+&xiao_serial { status = "disabled"; };
+
+ /{
+    /* トラックボール・リスナー */
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
 
-        /* ── スクロール用レイヤのみで Y を反転（ナチュラル想定） ──
-           1) XY移動をスクロールイベントへ変換（zip_xy_to_scroll_mapper）
-           2) スクロールのY成分だけ反転（zip_scroll_transform + INPUT_TRANSFORM_Y_INVERT）
-           ※ layers はあなたのスクロール用レイヤ番号に合わせる（ここでは 8）
-        */
+        /* スクロール用レイヤのみで“縦スクロール反転”（ナチュラル想定） */
         scroller_natural {
-            layers = <8>;
+            layers = <8>; /* ← Scloll_Layer のレイヤ番号に合わせる */
             input-processors =
                 <&zip_xy_to_scroll_mapper>,
                 <&zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)>;
+        };
+
+        /* AML：トラックボールを動かしたら MOUSE(=9) を2秒だけ自動ON */
+        aml_by_motion {
+            input-processors = <&zip_temp_layer 9 2000>;
         };
     };
 };
@@ -59,8 +78,6 @@
     };
 };
 
-&xiao_serial { status = "disabled"; };
-
 &spi0 {
     status = "okay";
     compatible = "nordic,nrf-spim";
@@ -76,8 +93,11 @@
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
 
-        /* 既存の設定。そのままでOK（この値は残して問題ありません） */
-        //automouse-layer = <9>;
+        /* pmw3610-driver のハードAMLは使わない（Input Processor を使用） */
+        //automouse-layer = <6>;
+
+        /* スクロール有効レイヤ（Scloll_Layer）番号 */
         scroll-layers = <8>;
     };
 };
+///////////////////////////////////////////////////////////////////////////////////////////////////
