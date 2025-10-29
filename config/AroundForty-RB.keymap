@@ -1,11 +1,12 @@
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100
-#define MOUSE 6
+#define MOUSE 9
 
 #include <behaviors/rgbled_widget.dtsi>  // RGBLEDウィジェットのビヘイビアを使うため
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
+#include <input/processors.dtsi>  // Input Processor（AML延長用 &mkp_input_listener など）を使うため
 
 /* タップホールドの味付け */
 
@@ -150,6 +151,14 @@
 
             tap-ms = <20>;
         };
+    };
+
+    /* ==== AML（クリック等で2秒延長）用の Input Processor ノードオーバーライド ==== */
+    /* &mkp_input_listener は input/processors.dtsi 内で定義済みのノード。
+       ここで input-processors を与えることで、クリック/ドラッグなどの
+       マウスキー操作のたびに MOUSE(=9) レイヤの滞在時間を 2000ms に延長します。 */
+    &mkp_input_listener {
+        input-processors = <&zip_temp_layer 9 2000>;
     };
 
     /* ==== キーマップ ==== */
