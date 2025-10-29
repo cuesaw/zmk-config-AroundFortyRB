@@ -214,6 +214,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans
             >;
+            sensor-bindings = <&scroll_up_down>;
         };
 
         AutoMouse_Layer {
