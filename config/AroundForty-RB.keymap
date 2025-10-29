@@ -13,7 +13,44 @@
 };
 
 / {
-    combos { compatible = "zmk,combos"; };
+    combos {
+        compatible = "zmk,combos";
+
+        to_Setting_Layer_combo {
+            bindings = <&mo 7>;
+            key-positions = <31 36>;
+        };
+
+        text1 {
+            bindings = <&text1>;
+            key-positions = <38 30>;
+        };
+
+        text2 {
+            bindings = <&text2>;
+            key-positions = <26 30>;
+        };
+
+        text3 {
+            bindings = <&text3>;
+            key-positions = <27 30>;
+        };
+
+        text4 {
+            bindings = <&text4>;
+            key-positions = <28 30>;
+        };
+
+        text5 {
+            bindings = <&text5>;
+            key-positions = <29 30>;
+        };
+
+        macOS_Lock {
+            bindings = <&macOS_Lock>;
+            key-positions = <25 38>;
+        };
+    };
 
     macros {
         to_layer_0: to_layer_0 {
@@ -21,6 +58,48 @@
             #binding-cells = <1>;
             bindings = <&to 0 &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
             label = "TO_LAYER_0";
+        };
+
+        text1: text1 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp T &kp E &kp X &kp T &kp N1>;
+            label = "TEXT1";
+        };
+
+        text2: text2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp T &kp E &kp X &kp T &kp NUMBER_2>;
+            label = "TEXT2";
+        };
+
+        text3: text3 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp T &kp E &kp X &kp T &kp N3>;
+            label = "TEXT3";
+        };
+
+        text4: text4 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp T &kp E &kp X &kp T &kp N4>;
+            label = "TEXT4";
+        };
+
+        text5: text5 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp T &kp E &kp X &kp T &kp N5>;
+            label = "TEXT5";
+        };
+
+        macOS_Lock: macOS_Lock {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LG(LC(Q))>;
+            label = "MACOS_LOCK";
         };
     };
 
@@ -48,10 +127,10 @@
 
         Mac-Default_Layer {
             bindings = <
-&kp Q           &kp W      &kp E         &kp R                    &kp T                          &kp Y        &kp U    &kp I          &kp O       &kp P
-&kp A           &kp S      &kp D         &kp F                    &kp G                          &kp H        &kp J    &kp K          &kp L       &kp MINUS
-&kp Z           &kp X      &kp C         &kp V                    &kp B        &kp ESCAPE        &kp N        &kp M    &kp COMMA      &kp PERIOD  &kp SLASH
-&kp LEFT_SHIFT  &kp LCTRL  &kp LEFT_ALT  &mt LEFT_GUI LANGUAGE_1  &lt 2 SPACE  &lt 4 LANGUAGE_2  &lt 6 ENTER  &kp TAB  &kp BACKSPACE  &lt 7 HASH  &mo 8
+&kp Q           &kp W      &kp E         &kp R                    &kp T                          &kp Y        &kp U    &kp I          &kp O        &kp P
+&kp A           &kp S      &kp D         &kp F                    &kp G                          &kp H        &kp J    &kp K          &kp L        &kp MINUS
+&kp Z           &kp X      &kp C         &kp V                    &kp B        &kp ESCAPE        &kp N        &kp M    &kp COMMA      &kp PERIOD   &kp SLASH
+&kp LEFT_SHIFT  &kp LCTRL  &kp LEFT_ALT  &mt LEFT_GUI LANGUAGE_1  &lt 2 SPACE  &lt 4 LANGUAGE_2  &lt 6 ENTER  &kp TAB  &kp BACKSPACE  &kp AT_SIGN  &mo 8
             >;
         };
 
@@ -119,10 +198,10 @@
 
         Setting_Layer {
             bindings = <
-&studio_unlock  &trans  &trans  &trans  &trans         &bt BT_SEL 0  &bt BT_SEL 1    &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
-&trans          &trans  &trans  &trans  &trans         &trans        &trans          &trans        &trans        &trans
-&trans          &trans  &trans  &trans  &trans  &to 0  &ind_bat      &trans          &trans        &trans        &bt BT_CLR
-&trans          &trans  &trans  &trans  &trans  &to 1  &bootloader   &studio_unlock  &sys_reset    &trans        &trans
+&studio_unlock  &trans  &trans  &trans  &trans          &bt BT_SEL 0  &bt BT_SEL 1    &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
+&trans          &trans  &trans  &trans  &trans          &trans        &trans          &trans        &trans        &trans
+&trans          &trans  &trans  &trans  &to 0   &to 1   &ind_bat      &trans          &trans        &trans        &bt BT_CLR
+&trans          &trans  &trans  &trans  &trans  &trans  &bootloader   &studio_unlock  &sys_reset    &trans        &bt BT_CLR_ALL
             >;
 
             sensor-bindings = <&scroll_up_down>;
@@ -130,10 +209,10 @@
 
         Scloll_Layer {
             bindings = <
-&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &trans    &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &mkp MB1  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans
             >;
         };
 
