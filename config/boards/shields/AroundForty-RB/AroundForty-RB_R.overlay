@@ -1,5 +1,10 @@
- #include "AroundForty-RB.dtsi"
+/* AroundForty-RB_R.overlay（input processors でスクロールY反転を適用した版） */
 
+#include "AroundForty-RB.dtsi"
+
+/* ▼ 入力プロセッサ使用に必要なインクルードを追加 */
+#include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
 
 &default_transform {
     col-offset = <6>;
@@ -16,10 +21,22 @@
 };
 
 / {
+    /* 既存のトラックボール用リスナー。ここへ “スクロールY反転” を追加する */
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
 
+        /* ── スクロール用レイヤのみで Y を反転（ナチュラル想定） ──
+           1) XY移動をスクロールイベントへ変換（zip_xy_to_scroll_mapper）
+           2) スクロールのY成分だけ反転（zip_scroll_transform + INPUT_TRANSFORM_Y_INVERT）
+           ※ layers はあなたのスクロール用レイヤ番号に合わせる（ここでは 8）
+        */
+        scroller_natural {
+            layers = <8>;
+            input-processors =
+                <&zip_xy_to_scroll_mapper>,
+                <&zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)>;
+        };
     };
 };
 
@@ -58,10 +75,9 @@
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+
+        /* 既存の設定。そのままでOK（この値は残して問題ありません） */
         //automouse-layer = <9>;
         scroll-layers = <8>;
-
     };
 };
-
-
