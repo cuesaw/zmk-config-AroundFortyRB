@@ -1,4 +1,4 @@
-#include "AroundForty-RB.dtsi"
+#include "AF.dtsi"
 
 &kscan0 {
         col-gpios

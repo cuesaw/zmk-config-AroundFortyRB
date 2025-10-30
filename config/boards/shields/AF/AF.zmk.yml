@@ -1,0 +1,8 @@
+file_format: "1"
+id: AF
+name: AF
+type: shield
+url: https://github.com/cuesaw/zmk-config-AF
+requires: [seeeduino_xiao_ble]
+features:
+  - keys

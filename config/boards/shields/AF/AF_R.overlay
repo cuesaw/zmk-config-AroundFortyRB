@@ -1,6 +1,6 @@
-/* AroundForty-RB_R.overlay（Input Processor: AML + スクロールY反転 + excluded-positions + 2秒タイムアウト） */
+/* AF_R.overlay（Input Processor: AML + スクロールY反転 + excluded-positions + 2秒タイムアウト） */
 
-#include "AroundForty-RB.dtsi"
+#include "AF.dtsi"
 
 /* Input Processor 利用 */
 #include <input/processors.dtsi>
