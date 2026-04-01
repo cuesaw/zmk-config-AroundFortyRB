@@ -70,6 +70,11 @@
             bindings = <&none>;
             key-positions = <35>;
         };
+
+        rights {
+            bindings = <&none>;
+            key-positions = <37>;
+        };
     };
 
     /* ==== マクロ定義 ==== */
