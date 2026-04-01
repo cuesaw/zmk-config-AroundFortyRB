@@ -65,6 +65,11 @@
             bindings = <&none>;
             key-positions = <16 18>;
         };
+
+        leftism {
+            bindings = <&none>;
+            key-positions = <35>;
+        };
     };
 
     /* ==== マクロ定義 ==== */
